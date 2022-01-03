@@ -36,7 +36,8 @@ set title
 set ignorecase
 set smartcase
 set wildmenu
-set wildmode=longest:full,full
+set wildmode=list:longest
+set wildignore=.hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor
 set list 
 set listchars=tab:➤\ ,trail:·
 set mouse=a
@@ -70,6 +71,13 @@ nmap <leader>x :!xdg-open %<cr><cr>
 
 nmap <leader>pi :PlugInstall<cr>
 
+" Open hotkeys
+map <C-p> :Files<CR>
+nmap <leader>; :Buffers<CR>
+
+" Quick-save
+nmap <leader>w :w<CR>
+
 
 " Find files using Telescope command-line sugar.
 " nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -84,6 +92,18 @@ nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^>
+
+
+" <leader>s for Rg search
+noremap <leader>s :Rg<cr>
+
+if executable('rg')
+    set grepprg=rg\ --no-heading\ --vimgrep
+    set grepformat=%f:%l:%c:%m
+endif
+
 "---------------------------------------------------------------------------------------
 "///////////// plugins /////////////////////////////////////////////////////////////////
 "---------------------------------------------------------------------------------------
@@ -96,8 +116,15 @@ call plug#begin('~/.config/nvim/plugins')
     source ~/.config/nvim/plugins/nerdtree.vim
     source ~/.config/nvim/plugins/nord-vim.vim
     source ~/.config/nvim/plugins/telescope.vim
+    source ~/.config/nvim/plugins/jon-g.vim
     source ~/.config/nvim/plugins/coc.vim
+
+
+    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    
+
 call plug#end()
+
 
 
 "---------------------------------------------------------------------------------------
